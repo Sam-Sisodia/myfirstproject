@@ -1,0 +1,115 @@
+ {% extends 'baseadmin.html' %}
+
+{% block content %} 
+<style>
+  .errorlist{
+    color: red;
+    list-style-type:none;
+  }
+  .success{
+    color:green;
+  }
+  </style>
+
+<main class="mt-5 pt-4">
+     {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+  {{message}}
+</div>
+        {% endfor %}
+        {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class='container-fluid'>
+            <div class="row">
+                <div class= "col-md-12 fw-bold fs-3"> Add User </div>
+            </div>
+
+            <div class="row">
+                <form>
+
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Name </label>
+                        <input type="text"  name ="username"  required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enater  Usrname">
+                       {%if not_add %}
+                        {{form.errors.username}}
+                        {% endif %}
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" name="email" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                     
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mobile no</label>
+                        <input type="text"  name ="phone" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Mobile No">
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Address</label>
+                        <input type="text"  name ="address" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address">
+                       
+                    </div>
+
+                   
+                  
+           
+
+                    <div class="form-control" >
+                    <label for="exampleInputEmail1">User Designation</label>
+                    <select class="form-select " name="domain" aria-label="Default select example">
+                        <option >Select Designations</option>
+                        
+                      {%  for i in obj_desiganations %}
+                        <option value="{{i.id}}">{{i.domain_name}}</option>
+
+                        {% endfor %}
+                        
+                        
+
+                      </select>
+                    </div>
+                     
+                    <div class="form-group">
+                        <label for="">User Position</label><br>
+                        <select class="form-select" name="position" >
+                          {%for po in form.position %}
+                          <div class="form-control"> {{po}} </div> 
+                        
+                           {% endfor %}
+                        </select>
+                    
+                    </div>
+
+                    <div class="form-group">
+                      <label for="">User Type </label><br>
+                      <select class="form-select" name="usertype" >
+                        {%for utype in form.usertype %}
+                        <div class="form-control"> {{utype}} </div> 
+                      
+                         {% endfor %}
+                      </select>
+                  
+                  </div>
+                        
+                   
+                  <div>
+                  <button type="submit" class="btn btn-primary mt-3">Add User</button></div>
+                </div>
+                  </form>
+               
+            </div>
+            
+        </div>
+     
+      </form>
+
+</main>
+
+
+
+
+ {% endblock %} 

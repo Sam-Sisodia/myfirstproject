@@ -1,0 +1,159 @@
+ {% extends 'baseadmin.html' %}
+
+{% block content %} 
+
+
+<style>
+  .errorlist{
+    color: red;
+    list-style-type:none;
+  }
+  .success{
+    color:green;
+  
+  }
+  .uu{
+    
+  }
+  </style>
+
+<main class="mt-5 pt-4">
+     {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+  {{message}}
+</div>
+        {% endfor %}
+        {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class='container-fluid'>
+            <div class="row">
+                <div class= "col-md-12 fw-bold fs-3"> User Profile  </div>
+            </div>
+           
+            <div class="row">
+                <form>
+
+
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Name </label>
+                        <input type="text" value="{{obj.username}}" name ="username"  required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enater  Usrname">
+                      
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" value="{{obj.email}}"  name="email" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                     
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mobile no</label>
+                        <input type="text"  value="{{obj.phone}}" name ="phone" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address">
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Address</label>
+                        <input type="text"  value="{{obj.address}}" name ="address" required class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter address">
+
+                    </div>
+
+                    
+            
+           
+                       
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">User Domain</label>
+                      <select class="form-select" name="domain" aria-label="Default select example">
+                          
+                          
+                        {%  for i in obj_desiganations %}
+                        {% if obj.domain == i.domain_name %} 
+                         <option value="{{i.id}}" selected>{{i.domain_name}}</option>
+                        {%else %}
+                        <option value="{{i.id}}" >{{i.domain_name}}</option>
+                        {% endif %}
+                         
+  
+                          {% endfor %}
+                        </select>
+                      </div>
+
+
+                     
+                    <div class="form-group">
+                      <label for="">User Position</label><br>
+                      <select class="form-select" name="position" >
+                        {%for po in form.position %}
+                            {% if obj.position %}
+                            <option selected>{{obj.position}}</option>{%endif%}
+                      
+                        <div class="form-control"> {{po}} </div> 
+                      
+                         {% endfor %}
+                      </select>
+                  
+                  </div>
+                    
+                 
+
+                  <div class="form-group">
+                    <label for="">User Type </label><br>
+                    <select class="form-select" name="usertype" >
+                      {%for utype in form.usertype %}
+                         {% if obj.usertype %}
+                          <option selected>{{obj.usertype}}</option>{%endif%}
+                         
+                      <div class="form-control"> {{utype}} </div> 
+
+                       {% endfor %}
+                    </select>
+                
+                </div>
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
+                       <div class="form-group">
+                        <label for="">User Position</label><br>
+                        
+                        
+                        
+                       <div class="form-control"> {{form.position}} </div> 
+                       
+                       </div> {% endcomment %}
+                        
+                  
+
+
+
+
+
+
+                  
+                      
+                    
+                    <div>
+                    <button type="submit" class="btn btn-primary">Upate</button></div>
+                    
+                  </form>
+               
+            </div>
+            
+        </div>
+     
+      </form>
+
+</main>
+
+
+
+
+{% endblock %} 

@@ -1,0 +1,80 @@
+
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+        <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+        <title>Admin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head> 
+  
+
+    <!--"background-image: url('img_girl.jpg');">-->
+ <body style="background-color: #214761" > 
+    <div class="container back text-white">
+        <div class="row my-3">
+          <div class="col-sm-6 offset-sm-3">
+            <h3><marquee marquee width="100%" behavior="alternate">Visiontrek Login Here </marquee></h3>
+            <hr>
+            <form action="" method="post" novalidate class="shadow p-5">
+              {% csrf_token %}
+      
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="email" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+              </div>
+              {% if messages %}
+              {% for message in messages %}
+      
+              <span {% if message.tags %} class="{{message.tags}}" {% endif %}>
+                {{message}}</span>
+      
+              {% endfor %}
+      
+              {% endif %}
+              <small><a href="{% url 'forgetpassword' %}">Forgot Password ?</a></small> 
+              <center><br>
+              <input type="submit" class="btn btn-primary mt-4" value="Login">
+              <br>
+              </center>
+      
+      
+              {% comment %} <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a
+                    href="#" class="text-danger">Create an Account</a> </small></div>
+            </form> {% endcomment %}
+      
+          </div>
+        </div>
+      </div>
+      
+
+   
+
+
+
+
+
+
+
+
+
+
+
+  <script src = "{% static 'js/custom.js' %}"></script>
+
+  <script src = "{% static 'js/jquery.js' %}"></script>
+    <script src ="{% static 'js/bootstrap.min.js' %}" ></script>
+
+</body>
+</html> 

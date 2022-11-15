@@ -1,0 +1,12 @@
+.scrollbar {
+    margin-left: 30px; 
+    height: 800px; 
+    overflow-y: scroll;
+    margin-bottom: 25px; 
+   }
+
+ .force-overflow {
+    min-height: 450px;
+  }  
+   
+ 

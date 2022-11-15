@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="container">
+  {% if messages %}
+    {% for msg in messages %}
+       <div class="alert alert-success" role="alert">
+          {{ msg }}
+       </div>
+    {% endfor %}
+  {% endif %}
+    <div class="heading">Interview Details</div>
+    <form method ="POST" enctype='multipart/form-data' id="indexForm" data-courses-url="{% url 'users' %}" >
+        {% csrf_token %}
+        <div class="card-details">
+            <div class="name">
+                <div class="card-box">
+                 
+                   <div class="card-box">
+                      <span class="details">First Name</span>
+                      {% comment %} {{form.first_name}} {% endcomment %}
+                   
+                      <input value="{{value.first_name}}" type="text" placeholder="Enter your name" name='first_name' required >
+                  </div>
+                  {{form.errors.first_name}} 
+  
+
+                <div class="card-box">
+                    <span class="details">Last Name</span>
+                    {% comment %} {{form.first_name}} {% endcomment %}
+                  <input value="{{value.last_name}}" type="text" placeholder="Enter your Lastname" name='last_name'required>
+                </div>
+                {{form.errors.last_name}} 
+            </div>
+            <div class="email">
+                <div class="card-box">
+                    <span class="details">Email</span>
+                   <input type="email" value="{{value.email}}" placeholder="Enter your email" name='email' required>
+                </div>
+                {{form.errors.email}}  
+
+                <div class="card-box">
+                    <span class="details">Phone Number</span>
+                    {% comment %} {{form.phone}} {% endcomment %}
+                    <input type="phone" value="{{value.phone}}" placeholder="Phone number" name='phone'  required>
+                </div>
+                {{form.errors.phone}}  
+            </div>
+            <div class="password">
+                <div class="card-box">
+                    <label for="birthdaytime">Schedule interview</label>
+                    {% comment %} {{form.datetime}} {% endcomment %}
+                    <input type="datetime-local"  id="birthdaytime" value='{{value.datetime|date:'Y-m-d'}}T{{value.datetime|time:'H:i'}}' name ="datetime" required>
+                </div>
+                {{form.errors.datetime}} 
+
+                <div class="dropdown">
+                    <label for="Position">Position</label><br>
+<<<<<<< HEAD
+                    {{form.position}}
+                    {% comment %} <select class="form-select" name="position" aria-label="default select example" required>
+=======
+                    {% comment %} {{form.position}} {% endcomment %}
+                    <select class="form-select" name="position" aria-label="default select example" required>
+>>>>>>> ed708f8305f95cb61e6dc5ec138ad73ad574dc8a
+                   
+                        <option value="">Please select</option>
+                          {% for position in positions %}
+                            <option value="{{position}}" {% if value.position == position %} selected {% endif %}>
+                              {{position.position}}
+                            </option>
+              
+                            {% endfor %}
+                        </select> {% endcomment %}
+                        {{form.errors.position}} 
+                      </div><br> 
+                <div class="dropdown">
+                    <label for="Position">Domain</label><br>
+                    <select class="form-select" name="domain" aria-label="default select example" id="programming" required>
+                    
+                        <option value="">Please select</option>
+                          {% for domain in domains %}
+                            <option value="{{domain.id}}" {% if value.domain.id == domain.id %} selected {% endif %}>
+                              {{domain.domain_name}}
+                            </option>
+                          {% endfor %}
+                        </select>
+                        {{form.errors.domain}} 
+                      </div><br>
+                      
+              <div class="dropdown">
+                  <label for="Interviewer">Interviewer</label>
+                  <select class="form-select" name="user" aria-label="default select example" id="user" required multiple>
+                   
+                  
+                    {% comment %} <option value="">Please select</option> {% endcomment %}
+                 
+
+                   {% if not user_id %}
+                    {% for i in user %}
+                    <option value="{{i.id}}">{{i.first_name}}</option>
+                    {% endfor %}
+                    {% endif %}
+
+
+                  {% if user_id %}
+                  {% for i in user %}
+                  {% for j in user_id %}
+                    {% if i.id == j %}
+                      <option value="{{i.id}}" selected>{{i.first_name}}</option>
+                    {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+
+                  {% for i in user %}
+                  {% for j in unadduser_id %}
+                    {% if i.id == j %}
+                      <option value="{{i.id}}" >{{i.first_name}}</option>
+                    {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                  {% endif %} 
+
+                
+                </select>
+                {{form.errors.user}}  
+              </div><br>
+              <label for="myfile">Upload Cv :</label><br>
+
+              <a href="http://127.0.0.1:8000/media/{{value.user_cv}}" target="_blank">{{value.user_cv}}</a>
+
+              {% if updating %}
+              <input type="file"  id="myfile" name='user_cv'  >  
+              {% else %} 
+              <input type="file" name='user_cv' required>  
+              {% endif %}
+          </div>
+          {{form.errors.user_cv}}
+         
+          <div class="button">
+            <input type="submit" value="Register">
+        </div>
+    </div>
+
+
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  $("#programming").change(function () {
+    var url = $("#indexForm").attr("data-courses-url");  // get the url of the `load_courses` view
+    var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+      data: {
+        'programming': programmingId       // add the programming id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_courses` view function
+        $("#user").html(data);  // replace the contents of the course input with the data that came from the server
+      }
+    });
+
+  });
+</script>
+
+{% endblock content%}

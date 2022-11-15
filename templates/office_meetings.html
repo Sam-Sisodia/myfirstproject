@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+    <div class="container">
+      {% if messages %}
+    {% for msg in messages %}
+       <div class="alert alert-success" role="alert">
+          {{ msg }}
+       </div>
+    {% endfor %}
+  {% endif %}
+        <div class="heading">Office Meeting</div>
+        <form method ="POST" novalidate>
+            {% csrf_token %}
+            <div class="card-details">
+                <div class="name">
+                    <div class="card-box">
+                        <span class="details">Meeting Agenda </span>
+                        <input type="text" name='Meeting_Agenda' value="{{value.Meeting_Agenda}}">
+                    </div>
+                    {{form.errors.Meeting_Agenda}}
+                    <div class="card-box">
+                        <span class="details">Discriptions</span>
+                        <textarea class="form-control" name='Description' id="content" cols="175" rows="7" >{{value.Description}}</textarea>
+                    </div>
+                {{form.errors.Description}}   
+                </div>
+                <div class="password">
+                    <div class="card-box">
+                        <label for="birthdaytime">Schedule interview</label>
+                        <input type="datetime-local" id="birthdaytime" value='{{value.datetime|date:'Y-m-d'}}T{{value.datetime|time:'H:i'}}' name ="datetime">
+                        
+                    </div>
+                    {{form.errors.datetime}}
+                    <div class="card-box">
+                        <label for="Interviewer">Interviewer</label>
+                        <select class="form-select" name="user" aria-label="default select example" multiple>
+                            <option value="">Please select</option>
+                            {% if not user_id %}
+                            {% for i in user %}
+                            <option value="{{i.id}}">{{i.first_name}}</option>
+                            {% endfor %}
+                            {% endif %}
+        
+        
+                          {% if user_id %}
+                          {% for i in user %}
+                          {% for j in user_id %}
+                            {% if i.id == j %}
+                              <option value="{{i.id}}" selected>{{i.first_name}}</option>
+                            {% endif %}
+                          {% endfor %}
+                          {% endfor %}
+        
+                          {% for i in user %}
+                          {% for j in unadduser_id %}
+                            {% if i.id == j %}
+                              <option value="{{i.id}}" >{{i.first_name}}</option>
+                            {% endif %}
+                          {% endfor %}
+                          {% endfor %}
+                          {% endif %}
+                        </select>
+                        {{form.errors.user}}  
+                      </div>
+
+                <div class="button">
+                    <input type="submit" value="Submit" >
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+{% endblock content %}

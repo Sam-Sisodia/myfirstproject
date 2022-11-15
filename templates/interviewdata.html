@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="scrollbar scrollbar-primary">
+  <div class="force-overflow">
+    <div class="container">
+      <div class="heading">TODAY Interviews </div>
+      <div class="p-4">
+      <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>CV</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Schedule Interview</th>
+                <th>Position</th>
+                <th>Domain</th>
+                <th>Interviewer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for sdata in todaydata %}
+            <tr>
+              <th scope="row">{{sdata.first_name}}</th>
+              <td>{{sdata.last_name}}</td>
+              <td><a href="http://127.0.0.1:8000/media/{{sdata.user_cv}}" target="_blank">{{sdata.user_cv}}</a></td>
+              <td>{{sdata.email}}</td>
+              <td>{{sdata.phone}}</td>
+              <td>{{sdata.datetime}}</td>
+              <td>{{sdata.position}}</td>
+              <td>{{sdata.domain}}</td>
+              <td>
+                {% for key,values in datausers.items %}
+                {% if key == sdata.id %}
+                {% for i in values %}
+                {{i }}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+             
+              </td>
+              <td>
+                <a href="{% url 'interviewupdate' sdata.id %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal-{{forloop.counter}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                <div id="deleteEmployeeModal-{{forloop.counter}}" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form>
+                        <div class="modal-header">						
+                          <h4 class="modal-title">Delete Employee</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                          <p>Are you sure you want to delete these Records?</p>
+                          <p class="text-warning"><small>{{sdata.first_name}} Information are delete</small></p>
+                        </div>
+                        <div class="modal-footer">
+                          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                          <a href="{% url 'interviewdelete' sdata.id %}" type="submit" class="btn btn-danger">Delete</a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  </div>
+              </td>
+              
+      
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+  
+
+
+    <div class="heading">All Interviews </div>
+        <div class="p-lg-4">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>CV</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Schedule Interview</th>
+                        <th>Position</th>
+                        <th>Domain</th>
+                        <th>Interviewer</th>
+                        <th>Actions</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for sdata in data %}
+                    <tr>
+                      <th scope="row">{{sdata.first_name}}</th>
+                      <td>{{sdata.last_name}}</td>
+                      <td><a href="http://127.0.0.1:8000/media/{{sdata.user_cv}}" target="_blank">{{sdata.user_cv}}</a></td>
+                      <td>{{sdata.email}}</td>
+                      <td>{{sdata.phone}}</td>
+                      <td>{{sdata.datetime}}</td>
+                      <td>{{sdata.position}}</td>
+                      <td>{{sdata.domain}}</td>
+                      <td>
+                        {% for key,values in datausers.items %}
+                        {% if key == sdata.id %}
+                        {% for i in values %}
+                        {{i }}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        
+                      </td>
+                      <td>
+                        <a href="{% url 'interviewupdate' sdata.id %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                        <a href="#deleteEmployeeModal-{{forloop.counter}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <div id="deleteEmployeeModal-{{forloop.counter}}" class="modal fade">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <form>
+                                <div class="modal-header">						
+                                  <h4 class="modal-title">Delete Employee</h4>
+                                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">					
+                                  <p>Are you sure you want to delete these Records?</p>
+                                  <p class="text-warning"><small>{{sdata.first_name}} Information are delete</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                  <a href="{% url 'interviewdelete' sdata.id %}" type="submit" class="btn btn-danger">Delete</a>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          </div>
+                      </td>
+                      
+              
+                    </tr>
+                    
+                  {% endfor %}
+                </tbody>
+            </table>
+            
+          </div>
+    </div>
+
+         
+        
+</div>
+
+{% endblock content %}

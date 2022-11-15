@@ -1,0 +1,224 @@
+
+
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> 
+        <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        
+        <title>Admin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head> 
+
+ <body>
+<!--NevbarStart-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+
+            <!--offcanvas trigger start -->
+             <button class="navbar-toggler  me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon"  data-bs-target="#offcanvasExample" ></span>
+            </button>
+    
+            <!--offcanvas trigger end -->
+          <a class="navbar-brand  fw-bold text-uppercase me-auto " href="http://127.0.0.1:8000/adminpanel/">VISONTREK Admin Panel</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex ms-auto ">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search user" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="button" id="button-addon2"><i class="bi bi-search"></i></button>
+                  </div>
+            </form>
+            <ul class = "navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'create_newuser' %}">Chage Password </a></li>
+                  <li><a class="dropdown-item" href="{% url 'login' %}">Logout </a></li>
+                    <!--add more option here -->
+                </ul>
+              </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+<!--NavbarEnd-->
+
+<!-- Off canvas Start -->
+     
+        
+        <div class="offcanvas offcanvas-start bg-dark text-white sidebar-nav" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            
+            <div class="offcanvas-body p-0">
+                <nav class = "navbar-dark">
+                    <ul class = "navbar-nav">
+                        <li>
+                            <div class = "text-muted small fw-bold  text-uppercase px-3">
+                                Admin
+                            </div>
+                            <li class="my-2">
+                                <hr class=  "dropdown-divider">
+                            </li>
+                        <li>
+                            <a class="nav-link px-3 sidebar-link active " href="http://127.0.0.1:8000/adminpanel/"  role="button" aria-controls="collapseExample">
+                                
+                                <span class= "mb-2"><i class = "bi bi-speedometer2"></i></span>
+                                <span>DashBoard</span>
+                              </a>    
+                          
+                        </li>
+                        <li class="my-4">
+                            <hr class=  "dropdown-divider">
+                        </li>
+                         <li>
+                            <div class = "text-muted small fw-bold  text-uppercase px-3  ">
+                               Admin Interface
+                            </div>
+                        </li>
+
+                        <!-- ADD USER START -->
+                        <li>
+                         
+                                <a class="nav-link px-3 sidebar-link active " href={% url 'create_newuser' %}  role="button" aria-controls="collapseExample">
+                                
+                                  <span class= "mb-3"><i class= "bi bi-layout-split"></i></span>
+                                  <span>Add User</span>
+                                </a>    
+                            
+                               <!--Meeting Devider -->
+                                <li class="my-2">
+                                    <hr class=  "dropdown-divider">
+                                </li>
+                                <!--divider end here-->
+                        
+                                <!--User Meetings dropdown start-->
+                                <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    
+                                    <span class= "mb-2"><i class="bi bi-people-fill"></i></i></span>
+                                    <span>Meetings Information  </span>
+                                    <span class="right-icon ms-auto"> <i class="bi bi-chevron-compact-down "></i> </span>
+                                </a> 
+                                    <div class="collapse" id="collapseExample">
+                                           <div>
+                                                <ul class="navbar-nav ps-5">
+                                                    <li>
+                                                        <a href="{% url 'admin_add_interview' %}" class="nav-link">
+                                                            <span>Create Interview</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="{% url 'admin_create_offcemeeting' %}" class="nav-link">
+                                                            <span>Create Office Meeting</span>
+                                                        </a>
+                                                    </li>
+                                                    
+                                                    <li>
+                                                        <a href="/adminpanel/admin_officemeeting/all" class="nav-link">
+                                                            <span>Office meetings</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="/adminpanel/admin_intreview_details/all" class="nav-link">
+                                                            <span>Interviews Details</span>
+                                                        </a>
+                                                    </li>
+
+                                                 </ul>   
+                                                 
+                                                
+                                               
+                                            </div>
+                                            
+                                        
+
+                                    </div>
+
+
+                                    <li class="my-3">
+                                        <hr class=  "dropdown-divider">
+                                    </li>
+                                
+                            
+                                    <!--User Meetings dropdown start-->
+                                    <a class="nav-link px-3 sidebar-link active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        
+                                        <span class= "mb-2"><i class="bi bi-envelope-fill"></i></i></i></span>
+                                        <span>Update for Employees  </span>
+                                        <span class="right-icon ms-auto"> <i class="bi bi-chevron-compact-down "></i> </span>
+                                    </a> 
+                                        <div class="collapse" id="collapseExample">
+                                               <div>
+                                                    <ul class="navbar-nav ps-5">
+                                                        <li>
+                                                            <a href="{% url 'domain' %}" class="nav-link">
+                                                                <span>Designations</span>
+                                                            </a>
+                                                        </li>
+    
+                                                        <li>
+                                                            <a href="#" class="nav-link">
+                                                                <span>Latest Information </span>
+                                                            </a>
+                                                        </li>
+    
+                                                     </ul>   
+                                                     
+                                                    
+                                                   
+                                                </div>
+                                                
+                                            
+    
+                                               </div>
+
+                               
+                                           
+                                            
+                                                
+                                        
+                                    </div>
+
+                                    
+
+                                    
+                                   
+
+                             
+                        </li>
+
+
+                    
+                    </ul>
+                </nav>           
+            </div>
+        </div>
+
+<!-- Off canvas end -->
+
+
+
+    
+    <script src = "{% static 'js/jquery.js' %}"></script>
+    <script src ="{% static 'js/bootstrap.min.js' %}" ></script>
+     
+
+</body>
+</html> 
+
+
+

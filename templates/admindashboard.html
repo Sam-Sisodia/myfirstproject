@@ -1,0 +1,74 @@
+
+{% extends 'baseadmin.html' %}
+
+{% block content %} 
+
+
+<main class="mt-5 pt-4">
+    <div class='container-fluid'>
+        <div class="row">
+            <div class= "col-md-12 fw-bold fs-3"> Admin DashBoard </div>
+        </div>
+        <br>
+
+{% comment %} 
+        <a class="btn btn-primary" href="{% url 'admin_add_interview' %}" role="button">Crete Interview</a> {% endcomment %}
+        <a class="btn btn-primary" href="/adminpanel/admin_intreview_details/today" role="button">Today Interview</a>
+        
+        <a class="btn btn-primary" href="/adminpanel/admin_officemeeting/today" role="button">Today Meetings</a>
+       <br>
+       <br>
+        
+
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Designation</th>
+            <th>Position</th>
+            <th>User Type</th>
+            {% comment %} <th>Employee Code</th> {% endcomment %}
+            <th>Address</th>
+            <th>Profile</th>
+            <th>Delete</th>
+           
+            
+            
+          </tr>
+        </tr>
+      </thead>
+      <tbody>
+       {% for obj in users %}
+
+          <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{obj.username}}</td>
+              <td>{{obj.email}}</td>
+              <td>{{obj.phone}}</td>
+              <td> {{obj.domain}}</td>
+              <td> {{obj.position}}</td>
+              <td> {{obj.usertype}}</td>
+
+            
+         
+              <td>{{obj.address}}</td>
+              <td><a href="/adminpanel/updatedetete/{{obj.id}}/edit" class="btn btn-success btn-sm">View</a></td>
+              <td><a href="/adminpanel/updatedetete/{{obj.id}}/delete" class="btn btn-danger btn-sm">Delete</a></td>
+
+
+          </tr>
+      {% endfor %}
+      </tbody>
+
+    </table>
+
+  
+  <main>
+
+
+
+{% endblock %} 

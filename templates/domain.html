@@ -1,0 +1,90 @@
+
+{% extends 'baseadmin.html' %}
+
+{% block content %}
+
+<style>
+  .errorlist{
+    color: red;
+    list-style-type:none;
+  }
+</style>
+
+<main class="mt-5 pt-4">
+    <div class='container-fluid'>
+        
+        <div class="row">
+            <div class= "col-md-12 fw-bold fs-3"> Domain  details  </div>
+        </div>
+
+        <div class="row" >
+            <form method = "POST">
+              {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Add New Designation </label>
+                    {% if obj %}
+                    <input type="text" name='domain_name' value= {{obj.domain_name}} class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="add domain">
+                    {% else %}
+                    <input type="text" name='domain_name' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="add domain">
+                     {%endif %}
+
+                     {% if fm.errors %}
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>{{fm.errors.domain_name}}</strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      
+                    </div>
+                    {% endif %}
+                     
+                  </div>
+                  {% if obj %}
+                  <button type="submit" class="btn btn-primary ">Upate </button>
+                  
+                  {% else %}
+                  <button type="submit" class="btn btn-primary ">Add </button>
+                  <!--add alert -->
+                  
+                  
+                  
+                  
+                  <!--end  alert -->
+                  {% endif %}
+                </form>
+
+       
+    <table class="table ">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Domain name</th>
+            <th>Date Time</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr> {% for i in domain_names %}                           <!--   href="/adminpanel/domainupdatedelete/{{i.id}}/delete/">   -->
+            <tr>
+              <td>{{forloop.counter}}</td>
+                 <td> {{i.domain_name}}</td>
+                 <td>{{i.created_at}}</td>
+
+
+
+                <td> <a type = "button" class="btn btn-primary btn-sm" href= "/adminpanel/domainupdatedelete/{{i.id}}/edit"> Edit </a></td> 
+                   
+                <td><a type = "button" class="btn btn-danger btn-sm" href="/adminpanel/domainupdatedelete/{{i.id}}/delete"> Delete </a></td>
+                        
+            </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+
+    
+    <main>
+
+
+
+{% endblock %}

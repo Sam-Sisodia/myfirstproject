@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="scrollbar scrollbar-primary">
+  <div class="force-overflow">
+    <div class="container">
+      <div class="heading">TODAY Office Meeting Data </div>
+      <div class="p-4">
+        <table id="example" class="table table-striped" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Meeting Agenda</th>
+                  <th>Discriptions</th>
+                  <th>Schedule Interview</th>
+                  <th>Interviewer</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+              
+            {% for sdata in todaydata %}
+            <tr>
+              <th scope="row">{{sdata.Meeting_Agenda}}</th>
+              <td>{{sdata.Description}}</td>
+              <td>{{sdata.datetime}}</td>
+              <td>
+            {% for key,value in datausers.items %}
+            {% if key == sdata.id %}
+            {% for i in value %}
+            {{i }}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+             
+              </td>
+              
+  
+              <td>
+                <a href="{% url 'Office_meetingupdate' sdata.id %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal-{{forloop.counter}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                <div id="deleteEmployeeModal-{{forloop.counter}}" class="modal fade">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <form>
+                              <div class="modal-header">						
+                                <h4 class="modal-title">Delete Employee</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">					
+                                <p>Are you sure you want to delete these Records?</p>
+                                <p class="text-warning"><small>{{sdata.Meeting_Agenda}} Information are delete</small></p>
+                              </div>
+                              <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <a href="{% url 'Office_meetingdelete' sdata.id %}" type="submit" class="btn btn-danger">Delete</a>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        </div>
+              </td>
+              
+              </tr>
+              {% endfor %}
+      </tbody>
+    </table>
+
+       
+
+
+
+
+
+      <div class="heading">All Office Meeting Data </div>
+       <div class="p-4">
+      <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Meeting Agenda</th>
+                <th>Discriptions</th>
+                <th>Schedule Interview</th>
+                <th>Interviewer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+          {% for sdata in data %}
+          <tr>
+            <th scope="row">{{sdata.Meeting_Agenda}}</th>
+            <td>{{sdata.Description}}</td>
+            <td>{{sdata.datetime}}</td>
+            <td>
+          {% for key,value in datausers.items %}
+          {% if key == sdata.id %}
+          {% for i in value %}
+          {{i }}
+          {% endfor %}
+          {% endif %}
+          {% endfor %}
+           
+            </td>
+            
+           <td>
+            <a href="{% url 'Office_meetingupdate' sdata.id %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+            <a href="#deleteEmployeeModal-{{forloop.counter}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+            <div id="deleteEmployeeModal-{{forloop.counter}}" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <form>
+                          <div class="modal-header">						
+                            <h4 class="modal-title">Delete Employee</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          </div>
+                          <div class="modal-body">					
+                            <p>Are you sure you want to delete these Records?</p>
+                            <p class="text-warning"><small>{{sdata.Meeting_Agenda}} Information are delete</small></p>
+                          </div>
+                          <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <a href="{% url 'Office_meetingdelete' sdata.id %}" type="submit" class="btn btn-danger">Delete</a>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    </div>
+          </td>
+          
+          </tr>
+          {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
+
+     
+               
+{% endblock content %}
+

@@ -1,0 +1,4 @@
+<option value="">---select courses---</option>
+{% for i in user %}
+<option value="{{ i.id }}">{{ i.first_name }}</option>
+{% endfor %}
